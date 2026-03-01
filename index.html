@@ -3,1453 +3,1398 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yamandia EP – Korona Gór Polski</title>
+<title>YAMANDIA EP — Korona Gór Polski</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,900&family=Barlow:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d0f0e;
-    --bg2: #131715;
-    --card: #161c18;
-    --border: #232b25;
-    --amber: #e8943a;
-    --amber2: #f5b45a;
-    --green: #4a7c59;
-    --green2: #6aad7e;
-    --text: #e8e6e1;
-    --muted: #7a8a7d;
-    --white: #f5f2ec;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* NOISE TEXTURE */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 2.5rem;
-    border-bottom: 1px solid transparent;
-    transition: all 0.4s;
-    background: linear-gradient(to bottom, rgba(13,15,14,0.9), transparent);
-  }
-
-  nav.scrolled {
-    background: rgba(13,15,14,0.95);
-    border-bottom-color: var(--border);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 900;
-    color: var(--white);
-    letter-spacing: -0.02em;
-  }
-
-  .nav-logo span { color: var(--amber); }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--amber); }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 2.5rem 5rem;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 70% 30%, rgba(74,124,89,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(232,148,58,0.08) 0%, transparent 50%),
-      linear-gradient(180deg, #0d0f0e 0%, #111614 50%, #0a0d0b 100%);
-  }
-
-  /* Mountain silhouette SVG */
-  .hero-mountain {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60%;
-    opacity: 0.15;
-  }
-
-  .hero-tag {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--amber);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 1px;
-    background: var(--amber);
-  }
-
-  .hero h1 {
-    position: relative;
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    color: var(--white);
-    max-width: 14ch;
-    margin-bottom: 2rem;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--amber);
-  }
-
-  .hero-sub {
-    position: relative;
-    max-width: 42ch;
-    color: var(--muted);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-  }
-
-  .hero-cta {
-    position: relative;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 2rem;
-    background: var(--amber);
-    color: #0d0f0e;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: all 0.25s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  }
-
-  .btn-primary:hover {
-    background: var(--amber2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(232,148,58,0.3);
-  }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 2rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: all 0.25s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--muted);
-    color: var(--text);
-  }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 2rem;
-    right: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  .hero-scroll::after {
-    content: '';
-    width: 1px;
-    height: 3rem;
-    background: linear-gradient(to bottom, var(--muted), transparent);
-    animation: scrollLine 2s ease infinite;
-  }
-
-  @keyframes scrollLine {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-
-  /* STATS BAR */
-  .stats-bar {
-    background: var(--card);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 2.5rem;
-    display: flex;
-    gap: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-  }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--amber);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  /* SECTION */
-  section {
-    padding: 6rem 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .section-header {
-    margin-bottom: 3.5rem;
-  }
-
-  .section-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--amber);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .section-eyebrow::before {
-    content: '';
-    width: 1.5rem;
-    height: 1px;
-    background: var(--amber);
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .section-title em {
-    font-style: italic;
-    color: var(--amber);
-  }
-
-  /* PEAK CARD */
-  .peaks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .peak-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.3s, border-color 0.3s;
-    cursor: pointer;
-  }
-
-  .peak-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--amber);
-  }
-
-  .peak-card:hover .peak-thumb-overlay {
-    opacity: 0.6;
-  }
-
-  .peak-thumb {
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .peak-thumb-bg {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.5s;
-  }
-
-  .peak-card:hover .peak-thumb-bg {
-    transform: scale(1.05);
-  }
-
-  .peak-thumb-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 30%, var(--card) 100%);
-    transition: opacity 0.3s;
-  }
-
-  .peak-difficulty {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.3rem 0.7rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  .diff-easy { background: rgba(106,173,126,0.2); color: var(--green2); border: 1px solid var(--green2); }
-  .diff-medium { background: rgba(232,148,58,0.15); color: var(--amber); border: 1px solid var(--amber); }
-  .diff-hard { background: rgba(220,80,60,0.15); color: #e06050; border: 1px solid #e06050; }
-
-  .peak-body {
-    padding: 1.5rem;
-  }
-
-  .peak-region {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--green2);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .peak-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 1rem;
-    line-height: 1.15;
-  }
-
-  .peak-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .peak-stat {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    padding: 0.6rem 0.4rem;
-    text-align: center;
-  }
-
-  .peak-stat-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--amber);
-    display: block;
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .peak-stat-key {
-    font-size: 0.62rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .peak-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .peak-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
-  .peak-read {
-    font-size: 0.8rem;
-    color: var(--amber);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 500;
-    transition: gap 0.2s;
-  }
-
-  .peak-read:hover { gap: 0.6rem; }
-
-  /* FEATURED POST (single peak detail) */
-  .featured-post {
-    background: var(--card);
-    border: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .fp-image {
-    min-height: 500px;
-    background: linear-gradient(135deg, #1a2e1e, #0d1a10);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .fp-image-inner {
-    font-size: 8rem;
-    opacity: 0.3;
-    filter: grayscale(0.5);
-  }
-
-  .fp-image-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(74,124,89,0.2), transparent 70%),
-      linear-gradient(135deg, rgba(13,15,14,0.3), rgba(232,148,58,0.05));
-  }
-
-  /* Mountain art from CSS */
-  .mountain-art {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .fp-elev-badge {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    background: rgba(13,15,14,0.8);
-    border: 1px solid var(--amber);
-    padding: 0.8rem 1.2rem;
-    backdrop-filter: blur(8px);
-  }
-
-  .fp-elev-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--amber);
-    line-height: 1;
-  }
-
-  .fp-elev-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .fp-content {
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .fp-top {}
-  .fp-region {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--green2);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .fp-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-  }
-
-  .fp-desc {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.75;
-    margin-bottom: 2rem;
-  }
-
-  /* Data table */
-  .data-tiles {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.6rem;
-    margin-bottom: 2rem;
-  }
-
-  .data-tile {
-    background: rgba(255,255,255,0.025);
-    border: 1px solid var(--border);
-    padding: 1rem;
-    display: flex;
-    gap: 0.8rem;
-    align-items: center;
-  }
-
-  .data-tile-icon {
-    width: 2rem;
-    height: 2rem;
-    background: rgba(232,148,58,0.1);
-    border: 1px solid rgba(232,148,58,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-
-  .data-tile-info {}
-  .data-tile-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1;
-  }
-
-  .data-tile-key {
-    font-size: 0.7rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-  }
-
-  /* Buttons row */
-  .fp-actions {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-  }
-
-  .btn-gpx {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: rgba(74,124,89,0.15);
-    border: 1px solid var(--green);
-    color: var(--green2);
-    font-size: 0.82rem;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-
-  .btn-gpx:hover {
-    background: rgba(74,124,89,0.3);
-    border-color: var(--green2);
-    transform: translateY(-1px);
-  }
-
-  .btn-map {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.82rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.25s;
-  }
-
-  .btn-map:hover {
-    border-color: var(--muted);
-    color: var(--text);
-  }
-
-  /* MAP SECTION */
-  .map-embed {
-    background: var(--card);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-top: 2rem;
-  }
-
-  .map-header {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .map-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .map-placeholder {
-    height: 320px;
-    background: linear-gradient(135deg, #111614, #0d1510);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .map-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(74,124,89,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,124,89,0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-
-  .map-center-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--amber);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 4px rgba(232,148,58,0.2), 0 0 0 8px rgba(232,148,58,0.08);
-  }
-
-  /* NEWSLETTER */
-  .newsletter-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 4rem 3rem;
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto 0;
-  }
-
-  .newsletter-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 50%, rgba(232,148,58,0.06), transparent 60%),
-      radial-gradient(ellipse at 20% 50%, rgba(74,124,89,0.06), transparent 60%);
-  }
-
-  .newsletter-inner {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .nl-left {}
-  .nl-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(232,148,58,0.1);
-    border: 1px solid rgba(232,148,58,0.25);
-    padding: 0.35rem 0.8rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--amber);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-
-  .nl-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .nl-desc {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
-  }
-
-  .nl-checklist {
-    margin-top: 1.5rem;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .nl-checklist li {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.88rem;
-    color: var(--muted);
-  }
-
-  .nl-checklist li::before {
-    content: '✓';
-    color: var(--green2);
-    font-weight: 700;
-    font-family: 'DM Mono', monospace;
-  }
-
-  .nl-right {}
-  .nl-form {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-    padding: 2rem;
-  }
-
-  .nl-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--white);
-    margin-bottom: 0.4rem;
-  }
-
-  .nl-form-sub {
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .nl-input {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.85rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    outline: none;
-    margin-bottom: 0.8rem;
-    transition: border-color 0.2s;
-  }
-
-  .nl-input:focus { border-color: var(--amber); }
-  .nl-input::placeholder { color: var(--muted); }
-
-  .nl-submit {
-    width: 100%;
-    padding: 0.95rem;
-    background: var(--amber);
-    color: #0d0f0e;
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: all 0.25s;
-    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-  }
-
-  .nl-submit:hover {
-    background: var(--amber2);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(232,148,58,0.3);
-  }
-
-  .nl-privacy {
-    font-size: 0.72rem;
-    color: var(--muted);
-    margin-top: 0.8rem;
-    text-align: center;
-  }
-
-  /* SHOP TEASER */
-  .shop-teaser {
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--amber);
-    background: var(--card);
-    padding: 2.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .shop-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(232,148,58,0.1);
-    border: 1px solid rgba(232,148,58,0.2);
-    padding: 0.3rem 0.7rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--amber);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .shop-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--white);
-    margin-bottom: 0.7rem;
-  }
-
-  .shop-desc {
-    color: var(--muted);
-    font-size: 0.9rem;
-    max-width: 40ch;
-    margin: 0 auto 1.5rem;
-    line-height: 1.6;
-  }
-
-  .shop-products {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-
-  .shop-product-pill {
-    padding: 0.45rem 1rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    padding: 3rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    max-width: 100%;
-  }
-
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: var(--white);
-  }
-
-  .footer-logo span { color: var(--amber); }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-  }
-
-  .footer-links a {
-    color: var(--muted);
-    font-size: 0.82rem;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--amber); }
-
-  .footer-social {
-    display: flex;
-    gap: 0.8rem;
-  }
-
-  .social-btn {
-    width: 2.2rem;
-    height: 2.2rem;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: all 0.2s;
-  }
-
-  .social-btn:hover {
-    border-color: var(--amber);
-    color: var(--amber);
-  }
-
-  /* KGP PROGRESS */
-  .kgp-progress {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .kgp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1.5rem;
-  }
-
-  .kgp-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .kgp-count {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--white);
-  }
-
-  .kgp-count span { color: var(--amber); }
-
-  .progress-bar {
-    height: 4px;
-    background: var(--border);
-    margin-bottom: 1.5rem;
-    position: relative;
-    overflow: visible;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, var(--green), var(--amber));
-    width: 45%;
-    position: relative;
-    transition: width 1s ease;
-  }
-
-  .progress-fill::after {
-    content: '';
-    position: absolute;
-    right: -4px;
-    top: -4px;
-    width: 12px;
-    height: 12px;
-    background: var(--amber);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(232,148,58,0.5);
-  }
-
-  .kgp-peaks {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  .kgp-peak-dot {
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.55rem;
-    color: var(--muted);
-    transition: all 0.2s;
-    cursor: default;
-    position: relative;
-  }
-
-  .kgp-peak-dot.done {
-    background: rgba(74,124,89,0.2);
-    border-color: var(--green);
-    color: var(--green2);
-  }
-
-  .kgp-peak-dot.done::after {
-    content: '✓';
-    font-size: 0.7rem;
-  }
-
-  .kgp-peak-dot.done span { display: none; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-tag { animation: fadeUp 0.6s ease both; }
-  .hero h1 { animation: fadeUp 0.8s ease 0.1s both; }
-  .hero-sub { animation: fadeUp 0.8s ease 0.2s both; }
-  .hero-cta { animation: fadeUp 0.8s ease 0.3s both; }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 4rem 1.5rem; }
-    .hero { padding: 0 1.5rem 4rem; }
-    .featured-post { grid-template-columns: 1fr; }
-    .fp-image { min-height: 250px; }
-    .newsletter-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .peaks-grid { grid-template-columns: 1fr; }
-    .peak-stats { grid-template-columns: repeat(2, 1fr); }
-    footer { flex-direction: column; align-items: flex-start; }
-    .stats-bar { gap: 2rem; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --black: #080808;
+  --white: #f2f0eb;
+  --grey: #1a1a1a;
+  --mid: #2e2e2e;
+  --muted: #666;
+  --border: #222;
+  --white-10: rgba(242,240,235,0.08);
+  --white-20: rgba(242,240,235,0.15);
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* GRAIN */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 0.5s steps(2) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0,0); }
+  10% { transform: translate(-2%,-3%); }
+  20% { transform: translate(3%,2%); }
+  30% { transform: translate(-1%,4%); }
+  40% { transform: translate(2%,-1%); }
+  50% { transform: translate(-3%,1%); }
+  60% { transform: translate(1%,3%); }
+  70% { transform: translate(-2%,-2%); }
+  80% { transform: translate(3%,-3%); }
+  90% { transform: translate(-1%,2%); }
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s;
+  mix-blend-mode: normal;
+}
+nav.scrolled {
+  background: var(--black);
+  border-bottom-color: var(--border);
+}
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.logo-circle {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+/* Stripes like the real logo */
+.logo-circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--white) 0px,
+    var(--white) 2px,
+    transparent 2px,
+    transparent 5px
+  );
+  opacity: 0.3;
+}
+.logo-ep {
+  position: relative;
+  z-index: 1;
+  font-size: 0.5rem;
+  font-weight: 900;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+/* HERO — full brutal editorial */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 2rem 3rem;
+}
+
+/* Giant background text */
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: -2%;
+  transform: translateY(-50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(15rem, 30vw, 28rem);
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242,240,235,0.06);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-kicker::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: var(--muted);
+}
+
+.hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 11vw, 9.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 2.5rem;
+}
+.hero-title .line-inv {
+  display: block;
+  background: var(--white);
+  color: var(--black);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+.hero-title .line-outline {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--white);
+}
+
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--border);
+}
+.hero-bottom-cell {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--border);
+}
+.hero-bottom-cell:last-child { border-right: none; }
+.hbc-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.hbc-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+/* TICKER */
+.ticker {
+  background: var(--white);
+  color: var(--black);
+  padding: 0.6rem 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.ticker-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 25s linear infinite;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  gap: 3rem;
+}
+.ticker-inner span { flex-shrink: 0; }
+.ticker-sep { color: #888; margin: 0 0.5rem; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* FEATURED PEAK */
+.featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.feat-visual {
+  background: var(--grey);
+  border-right: 1px solid var(--border);
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* SVG mountain scene */
+.feat-mountain-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.feat-elev {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.feat-elev-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -0.03em;
+}
+.feat-elev-unit {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.8rem;
+}
+.feat-diff-badge {
+  border: 1px solid var(--white);
+  padding: 0.3rem 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.feat-content {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.feat-region {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+.feat-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.feat-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  max-width: 44ch;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+/* Data grid */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.dg-cell {
+  padding: 1rem 1.2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.dg-cell:nth-child(2n) { border-right: none; }
+.dg-cell:nth-child(3), .dg-cell:nth-child(4) { border-bottom: none; }
+.dg-key {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.dg-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.feat-actions {
+  display: flex;
+  gap: 0;
+}
+.btn-blk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.btn-blk:hover { background: #ddd; }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  background: transparent;
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--white); }
+
+/* MAP */
+.map-block {
+  border-bottom: 1px solid var(--border);
+}
+.map-bar {
+  padding: 0.9rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.map-bar-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.map-bar-status {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.map-bar-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+}
+.map-placeholder {
+  height: 300px;
+  background: var(--grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.map-crosshair {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.map-crosshair::before, .map-crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--white);
+}
+.map-crosshair::before {
+  width: 1px;
+  height: 24px;
+  top: -12px;
+  left: 0;
+}
+.map-crosshair::after {
+  height: 1px;
+  width: 24px;
+  left: -12px;
+  top: 0;
+}
+.map-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 8px rgba(255,255,255,0.1), 0 0 0 16px rgba(255,255,255,0.04);
+}
+.map-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+
+/* PEAKS SECTION */
+.section-head {
+  padding: 3rem 2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.sh-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.sh-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.peaks-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pk {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  transition: background 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.pk:nth-child(3n) { border-right: none; }
+.pk:hover { background: var(--grey); }
+
+.pk-img {
+  height: 160px;
+  background: var(--grey);
+  position: relative;
+  overflow: hidden;
+}
+.pk-img-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s;
+}
+.pk:hover .pk-img-inner { transform: scale(1.04); }
+
+.pk-num {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  color: rgba(255,255,255,0.12);
+  letter-spacing: -0.03em;
+}
+.pk-diff {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid currentColor;
+}
+.diff-e { color: #ccc; }
+.diff-m { color: #999; }
+.diff-h { color: var(--white); background: rgba(255,255,255,0.1); }
+
+.pk-body { padding: 1.2rem 1.5rem; }
+.pk-region {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.pk-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.pk-stats {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+.pk-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.pk-stat-v {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  line-height: 1;
+}
+.pk-stat-k {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* KGP PROGRESS */
+.kgp-section {
+  padding: 3rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.kgp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2rem;
+}
+.kgp-counter {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.kgp-frac {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--white);
+}
+.prog-track {
+  height: 2px;
+  background: var(--border);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--white);
+  width: 46%;
+}
+.kgp-grid {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+.kgp-cell {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+  cursor: default;
+  transition: background 0.15s;
+}
+.kgp-cell.done {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+  font-weight: 700;
+}
+.kgp-cell:hover { border-color: var(--white); }
+
+/* NEWSLETTER */
+.nl-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.nl-left {
+  padding: 4rem 3rem;
+  border-right: 1px solid var(--border);
+}
+.nl-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.nl-eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--muted);
+}
+.nl-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+}
+.nl-title .inv {
+  background: var(--white);
+  color: var(--black);
+  display: inline;
+  padding: 0 0.1em;
+}
+.nl-body {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  max-width: 38ch;
+  margin-bottom: 2rem;
+}
+.nl-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.nl-items li {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  letter-spacing: 0.04em;
+}
+.nl-items li::before {
+  content: '+';
+  color: var(--white);
+  font-weight: 700;
+}
+.nl-right {
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.nl-form-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.nl-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--white);
+  padding: 1rem 0;
+  font-family: 'Barlow', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  outline: none;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.2s;
+}
+.nl-input:focus { border-bottom-color: var(--white); }
+.nl-input::placeholder { color: var(--muted); }
+.nl-submit {
+  width: 100%;
+  padding: 1.1rem;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+.nl-submit:hover { background: #ddd; }
+.nl-privacy {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  letter-spacing: 0.06em;
+}
+
+/* SHOP */
+.shop-section {
+  padding: 4rem 2rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.shop-bg-text {
+  position: absolute;
+  right: -1%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 15rem;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.shop-inner {
+  position: relative;
+  max-width: 600px;
+}
+.shop-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.shop-eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--muted);
+}
+.shop-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin-bottom: 1.2rem;
+}
+.shop-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 42ch;
+  margin-bottom: 2rem;
+}
+.shop-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.shop-tag {
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* FOOTER */
+footer {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: none;
+}
+.footer-left {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--white);
+}
+.footer-mid {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.footer-mid a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-mid a:hover { color: var(--white); }
+.footer-right {
+  display: flex;
+  gap: 0;
+}
+.social-link {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--border);
+  border-right: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.social-link:last-child { border-right: 1px solid var(--border); }
+.social-link:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+/* LOAD ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-kicker { animation: fadeUp 0.5s ease both; }
+.hero-title { animation: fadeUp 0.7s ease 0.1s both; }
+.hero-bottom { animation: fadeUp 0.5s ease 0.25s both; }
+
+@media (max-width: 900px) {
+  .featured, .nl-section { grid-template-columns: 1fr; }
+  .feat-visual { min-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
+  .peaks-list { grid-template-columns: 1fr 1fr; }
+  .pk:nth-child(3n) { border-right: 1px solid var(--border); }
+  .pk:nth-child(2n) { border-right: none; }
+  .nl-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-bottom { grid-template-columns: 1fr; }
+  .hero-bottom-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-bottom-cell:last-child { border-bottom: none; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .shop-bg-text { display: none; }
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">Yamandia <span>EP</span></div>
+  <div class="nav-logo">
+    <div class="logo-circle"><span class="logo-ep">EP</span></div>
+    Yamandia EP
+  </div>
   <ul class="nav-links">
     <li><a href="#szczyty">Szczyty</a></li>
     <li><a href="#kgp">KGP</a></li>
-    <li><a href="#checklist">Checklista</a></li>
+    <li><a href="#newsletter">Checklista</a></li>
     <li><a href="#sklep">Sklep</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-bg"></div>
-
-  <svg class="hero-mountain" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <path d="M0 400 L200 200 L350 280 L500 120 L650 240 L800 80 L950 200 L1100 140 L1250 220 L1440 100 L1440 400 Z" fill="#4a7c59" opacity="0.3"/>
-    <path d="M0 400 L300 260 L450 320 L620 180 L780 300 L900 160 L1050 280 L1200 200 L1350 280 L1440 220 L1440 400 Z" fill="#2d5c3e" opacity="0.5"/>
-    <path d="M0 400 L150 320 L320 350 L480 280 L640 340 L800 260 L960 320 L1120 280 L1280 330 L1440 300 L1440 400 Z" fill="#1a3d28" opacity="0.7"/>
-  </svg>
-
-  <div class="hero-tag">Korona Gór Polski · Baza wiedzy</div>
-  <h1>Gdzie kończy się <em>droga,</em> zaczyna się szlak</h1>
-  <p class="hero-sub">Dane turystyczne, trasy GPX i prawdziwe relacje z 28 szczytów Korony Gór Polski. Więcej niż reel — konkretna wiedza przed wyjściem w góry.</p>
-  <div class="hero-cta">
-    <a href="#szczyty" class="btn-primary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      Przeglądaj szczyty
-    </a>
-    <a href="#checklist" class="btn-ghost">
-      ↓ Pobierz Checklistę KGP
-    </a>
+  <div class="hero-main">
+    <div class="hero-bg-text">KGP</div>
+    <div class="hero-kicker">Korona Gór Polski · Baza wiedzy</div>
+    <h1 class="hero-title">
+      <span>GDZIE</span>
+      <span class="line-inv">KOŃCZY SIĘ</span>
+      <span class="line-outline">DROGA</span>
+    </h1>
   </div>
-
-  <div class="hero-scroll">scroll</div>
-</div>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-num">28</span>
-    <span class="stat-label">Szczytów KGP</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">13</span>
-    <span class="stat-label">Zdobytych</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">47</span>
-    <span class="stat-label">Pliki GPX</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">2.1k</span>
-    <span class="stat-label">Obserwatorów</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">9500+</span>
-    <span class="stat-label">m n.p.m. razem</span>
+  <div class="hero-bottom">
+    <div class="hero-bottom-cell">
+      <div class="hbc-label">Szczytów KGP</div>
+      <div class="hbc-val">28</div>
+    </div>
+    <div class="hero-bottom-cell">
+      <div class="hbc-label">Zdobytych</div>
+      <div class="hbc-val">13 / 28</div>
+    </div>
+    <div class="hero-bottom-cell">
+      <div class="hbc-label">Pliki GPX</div>
+      <div class="hbc-val">47</div>
+    </div>
   </div>
 </div>
 
-<!-- FEATURED: SINGLE PEAK POST -->
-<section id="szczyty" style="padding-top: 5rem; max-width: 1200px; margin: 0 auto; padding-left: 2.5rem; padding-right: 2.5rem;">
-  <div class="section-header">
-    <div class="section-eyebrow">Ostatni wpis</div>
-    <h2 class="section-title">Szczyt <em>w detalach</em></h2>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span>RYSY 2499M</span><span class="ticker-sep">·</span>
+    <span>BABIA GÓRA 1725M</span><span class="ticker-sep">·</span>
+    <span>ŚNIEŻKA 1603M</span><span class="ticker-sep">·</span>
+    <span>TARNICA 1346M</span><span class="ticker-sep">·</span>
+    <span>SKRZYCZNE 1499M</span><span class="ticker-sep">·</span>
+    <span>SZCZELINIEC 919M</span><span class="ticker-sep">·</span>
+    <span>ŁYSICA 612M</span><span class="ticker-sep">·</span>
+    <span>ŚLĘŻA 718M</span><span class="ticker-sep">·</span>
+    <span>RYSY 2499M</span><span class="ticker-sep">·</span>
+    <span>BABIA GÓRA 1725M</span><span class="ticker-sep">·</span>
+    <span>ŚNIEŻKA 1603M</span><span class="ticker-sep">·</span>
+    <span>TARNICA 1346M</span><span class="ticker-sep">·</span>
+    <span>SKRZYCZNE 1499M</span><span class="ticker-sep">·</span>
+    <span>SZCZELINIEC 919M</span><span class="ticker-sep">·</span>
+    <span>ŁYSICA 612M</span><span class="ticker-sep">·</span>
+    <span>ŚLĘŻA 718M</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- FEATURED PEAK -->
+<div class="featured" id="szczyty">
+  <div class="feat-visual">
+    <svg class="feat-mountain-svg" viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="560" fill="#111"/>
+      <!-- sky gradient -->
+      <defs>
+        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1a1a"/>
+          <stop offset="100%" stop-color="#0d0d0d"/>
+        </linearGradient>
+        <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f2f0eb" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#555" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="600" height="560" fill="url(#skyG)"/>
+      <!-- Stars -->
+      <circle cx="80" cy="60" r="1" fill="white" opacity="0.5"/>
+      <circle cx="200" cy="40" r="1.5" fill="white" opacity="0.4"/>
+      <circle cx="320" cy="80" r="1" fill="white" opacity="0.6"/>
+      <circle cx="480" cy="50" r="1" fill="white" opacity="0.3"/>
+      <circle cx="540" cy="110" r="1.5" fill="white" opacity="0.4"/>
+      <circle cx="150" cy="100" r="1" fill="white" opacity="0.5"/>
+      <!-- Back mountains -->
+      <path d="M0 560 L0 350 L80 280 L160 320 L240 200 L320 260 L400 180 L480 230 L560 170 L600 200 L600 560 Z" fill="#1a1a1a"/>
+      <!-- Main mountain -->
+      <path d="M0 560 L0 420 L120 370 L200 390 L300 220 L400 360 L480 340 L600 380 L600 560 Z" fill="#222"/>
+      <!-- Snow cap -->
+      <path d="M280 240 L300 220 L320 240 L310 260 L290 260 Z" fill="url(#snowG)"/>
+      <!-- Foreground ridge -->
+      <path d="M0 560 L0 460 L80 440 L160 460 L260 430 L360 450 L440 435 L540 455 L600 440 L600 560 Z" fill="#161616"/>
+      <!-- Treeline dots -->
+      <g opacity="0.6">
+        <path d="M60 440 L65 420 L70 440 Z" fill="#2a2a2a"/>
+        <path d="M90 445 L95 425 L100 445 Z" fill="#2a2a2a"/>
+        <path d="M420 435 L425 415 L430 435 Z" fill="#2a2a2a"/>
+        <path d="M450 440 L455 420 L460 440 Z" fill="#2a2a2a"/>
+        <path d="M480 438 L485 418 L490 438 Z" fill="#2a2a2a"/>
+      </g>
+      <!-- Contour lines -->
+      <path d="M100 480 Q300 470 500 475" stroke="#333" stroke-width="0.5" fill="none"/>
+      <path d="M80 500 Q300 495 520 498" stroke="#2a2a2a" stroke-width="0.5" fill="none"/>
+    </svg>
+
+    <div class="feat-elev">
+      <div>
+        <div class="feat-elev-num">1499</div>
+        <div class="feat-elev-unit">m n.p.m.</div>
+      </div>
+      <div class="feat-diff-badge">Średnia</div>
+    </div>
   </div>
 
-  <div class="featured-post">
-    <!-- Image side -->
-    <div class="fp-image">
-      <div class="fp-image-overlay"></div>
-      <svg class="mountain-art" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="snowGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#e8e6e1" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#4a7c59" stop-opacity="0.3"/>
-          </linearGradient>
-        </defs>
-        <path d="M0 300 L100 180 L180 220 L270 80 L350 180 L420 120 L500 160 L600 100 L600 300 Z" fill="#1a3d28" opacity="0.8"/>
-        <path d="M240 80 L270 40 L300 80" fill="url(#snowGrad)" opacity="0.6"/>
-        <path d="M390 120 L420 85 L450 120" fill="url(#snowGrad)" opacity="0.4"/>
-      </svg>
-      <div class="fp-elev-badge">
-        <div class="fp-elev-num">1499</div>
-        <div class="fp-elev-label">m n.p.m.</div>
-      </div>
-    </div>
+  <div class="feat-content">
+    <div>
+      <div class="feat-region">Beskid Śląski · #05 KGP</div>
+      <h2 class="feat-name">Skrzyczne</h2>
+      <p class="feat-desc">Najwyższy szczyt Beskidu Śląskiego. Trasa okrężna przez Szyndzielnię — widok na Tatry przy dobrej widoczności. Szczyt z wieżą nadawczą i schroniskiem PTTK.</p>
 
-    <!-- Content side -->
-    <div class="fp-content">
-      <div class="fp-top">
-        <div class="fp-region">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Beskid Śląski · Polska
+      <div class="data-grid">
+        <div class="dg-cell">
+          <div class="dg-key">Wysokość</div>
+          <div class="dg-val">1499 m</div>
         </div>
-        <h2 class="fp-title">Skrzyczne</h2>
-        <p class="fp-desc">Najwyższy szczyt Beskidu Śląskiego z widokiem na Tatry, Babią Górę i Łysą Górę. Trasa okrężna przez Szyndzielnię — idealna na dzień bez tłumów.</p>
-
-        <div class="data-tiles">
-          <div class="data-tile">
-            <div class="data-tile-icon">⛰</div>
-            <div class="data-tile-info">
-              <div class="data-tile-val">1499 m</div>
-              <div class="data-tile-key">Wysokość</div>
-            </div>
-          </div>
-          <div class="data-tile">
-            <div class="data-tile-icon">⏱</div>
-            <div class="data-tile-info">
-              <div class="data-tile-val">4h 30m</div>
-              <div class="data-tile-key">Czas przejścia</div>
-            </div>
-          </div>
-          <div class="data-tile">
-            <div class="data-tile-icon">📈</div>
-            <div class="data-tile-info">
-              <div class="data-tile-val">+680 m</div>
-              <div class="data-tile-key">Przewyższenie</div>
-            </div>
-          </div>
-          <div class="data-tile">
-            <div class="data-tile-icon">🎯</div>
-            <div class="data-tile-info">
-              <div class="data-tile-val">Średnia</div>
-              <div class="data-tile-key">Trudność</div>
-            </div>
-          </div>
+        <div class="dg-cell">
+          <div class="dg-key">Czas przejścia</div>
+          <div class="dg-val">4h 30m</div>
+        </div>
+        <div class="dg-cell">
+          <div class="dg-key">Przewyższenie</div>
+          <div class="dg-val">+680 m</div>
+        </div>
+        <div class="dg-cell">
+          <div class="dg-key">Dystans</div>
+          <div class="dg-val">14.2 km</div>
         </div>
       </div>
+    </div>
 
-      <div class="fp-actions">
-        <a href="#" class="btn-gpx" onclick="return false;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Pobierz GPX
-        </a>
-        <a href="#" class="btn-primary" onclick="return false;" style="font-size:0.82rem; padding: 0.75rem 1.5rem;">
-          Czytaj relację →
-        </a>
-        <a href="#" class="btn-map" onclick="return false;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          Parking → Maps
-        </a>
-      </div>
+    <div class="feat-actions">
+      <a href="#" class="btn-blk" onclick="return false;">
+        ↓ Pobierz GPX
+      </a>
+      <a href="#" class="btn-outline" onclick="return false;">
+        Czytaj relację →
+      </a>
+      <a href="#" class="btn-outline" onclick="return false;">
+        ⊕ Parking
+      </a>
     </div>
   </div>
+</div>
 
-  <!-- Map embed placeholder -->
-  <div class="map-embed">
-    <div class="map-header">
-      <span class="map-title">Mapa trasy · mapy.cz</span>
-      <span style="font-family:'DM Mono',monospace; font-size:0.7rem; color: var(--green2);">● Interaktywna</span>
-    </div>
-    <div class="map-placeholder">
-      <div class="map-grid-lines"></div>
-      <div class="map-center-dot"></div>
-      <span style="position:relative; z-index:1;">Tu będzie osadzony iframe z mapy.cz</span>
-    </div>
+<!-- MAP -->
+<div class="map-block">
+  <div class="map-bar">
+    <span class="map-bar-label">Mapa trasy · mapy.cz embed</span>
+    <span class="map-bar-status">Interaktywna</span>
   </div>
-</section>
+  <div class="map-placeholder">
+    <div class="map-grid"></div>
+    <div class="map-crosshair">
+      <div class="map-dot"></div>
+    </div>
+    <span class="map-label">Tu wklejasz iframe z mapy.cz</span>
+  </div>
+</div>
 
 <!-- PEAKS GRID -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 3rem 2.5rem 5rem;">
-  <div class="section-header">
-    <div class="section-eyebrow">Baza wiedzy</div>
-    <h2 class="section-title">Wszystkie <em>szczyty</em></h2>
+<div>
+  <div class="section-head">
+    <h2 class="sh-title">Wszystkie szczyty</h2>
+    <span class="sh-sub">13 / 28 zdobytych</span>
   </div>
+  <div class="peaks-list" id="szczyty-lista">
 
-  <div class="peaks-grid">
-
-    <div class="peak-card">
-      <div class="peak-thumb">
-        <div class="peak-thumb-bg" style="background: linear-gradient(135deg, #1a3d28, #2d5c3e, #3a7a50);"></div>
-        <div class="peak-thumb-overlay"></div>
-        <span class="peak-difficulty diff-easy">Łatwa</span>
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#111"/>
+          <path d="M0 160 L0 100 L80 70 L160 90 L200 40 L240 80 L320 60 L400 80 L400 160 Z" fill="#1e1e1e"/>
+          <path d="M0 160 L0 120 L100 105 L200 110 L300 100 L400 108 L400 160 Z" fill="#161616"/>
+          <path d="M190 45 L200 40 L210 45 L205 58 L195 58 Z" fill="rgba(255,255,255,0.15)"/>
+        </svg>
+        <div class="pk-num">01</div>
+        <div class="pk-diff diff-h">Trudna</div>
       </div>
-      <div class="peak-body">
-        <div class="peak-region">Góry Stołowe</div>
-        <div class="peak-name">Szczeliniec Wielki</div>
-        <div class="peak-stats">
-          <div class="peak-stat"><span class="peak-stat-val">919</span><span class="peak-stat-key">m npm</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">3h</span><span class="peak-stat-key">czas</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">+380</span><span class="peak-stat-key">przewyż.</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">GPX</span><span class="peak-stat-key" style="color:var(--green2);">●</span></div>
-        </div>
-        <div class="peak-footer">
-          <span class="peak-date">12 Kwi 2025</span>
-          <a href="#" class="peak-read" onclick="return false;">Czytaj →</a>
+      <div class="pk-body">
+        <div class="pk-region">Tatry Wysokie</div>
+        <div class="pk-name">Rysy</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">2499m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">9h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+1380m</div><div class="pk-stat-k">przewyż.</div></div>
         </div>
       </div>
     </div>
 
-    <div class="peak-card">
-      <div class="peak-thumb">
-        <div class="peak-thumb-bg" style="background: linear-gradient(135deg, #2d4a1e, #1a3d28, #4a7c59);"></div>
-        <div class="peak-thumb-overlay"></div>
-        <span class="peak-difficulty diff-hard">Trudna</span>
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#0f0f0f"/>
+          <path d="M0 160 L0 90 L100 60 L180 80 L250 30 L330 70 L400 50 L400 160 Z" fill="#1c1c1c"/>
+          <path d="M0 160 L0 125 L120 112 L250 118 L400 108 L400 160 Z" fill="#141414"/>
+        </svg>
+        <div class="pk-num">02</div>
+        <div class="pk-diff diff-h">Trudna</div>
       </div>
-      <div class="peak-body">
-        <div class="peak-region">Tatry Zachodnie</div>
-        <div class="peak-name">Rysy</div>
-        <div class="peak-stats">
-          <div class="peak-stat"><span class="peak-stat-val">2499</span><span class="peak-stat-key">m npm</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">9h</span><span class="peak-stat-key">czas</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">+1380</span><span class="peak-stat-key">przewyż.</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">GPX</span><span class="peak-stat-key" style="color:var(--green2);">●</span></div>
-        </div>
-        <div class="peak-footer">
-          <span class="peak-date">28 Lip 2025</span>
-          <a href="#" class="peak-read" onclick="return false;">Czytaj →</a>
+      <div class="pk-body">
+        <div class="pk-region">Beskid Żywiecki</div>
+        <div class="pk-name">Babia Góra</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">1725m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">6h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+900m</div><div class="pk-stat-k">przewyż.</div></div>
         </div>
       </div>
     </div>
 
-    <div class="peak-card">
-      <div class="peak-thumb">
-        <div class="peak-thumb-bg" style="background: linear-gradient(135deg, #1e2d3a, #1a2e40, #2a4a5c);"></div>
-        <div class="peak-thumb-overlay"></div>
-        <span class="peak-difficulty diff-medium">Średnia</span>
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#131313"/>
+          <path d="M0 160 L0 110 L60 85 L130 100 L220 50 L290 85 L360 70 L400 80 L400 160 Z" fill="#1f1f1f"/>
+          <path d="M0 160 L0 130 L150 120 L300 125 L400 118 L400 160 Z" fill="#181818"/>
+        </svg>
+        <div class="pk-num">03</div>
+        <div class="pk-diff diff-m">Średnia</div>
       </div>
-      <div class="peak-body">
-        <div class="peak-region">Bieszczady</div>
-        <div class="peak-name">Tarnica</div>
-        <div class="peak-stats">
-          <div class="peak-stat"><span class="peak-stat-val">1346</span><span class="peak-stat-key">m npm</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">5h</span><span class="peak-stat-key">czas</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">+580</span><span class="peak-stat-key">przewyż.</span></div>
-          <div class="peak-stat"><span class="peak-stat-val">GPX</span><span class="peak-stat-key" style="color:var(--green2);">●</span></div>
+      <div class="pk-body">
+        <div class="pk-region">Karkonosze</div>
+        <div class="pk-name">Śnieżka</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">1603m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">5h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+750m</div><div class="pk-stat-k">przewyż.</div></div>
         </div>
-        <div class="peak-footer">
-          <span class="peak-date">3 Wrz 2025</span>
-          <a href="#" class="peak-read" onclick="return false;">Czytaj →</a>
+      </div>
+    </div>
+
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#0e0e0e"/>
+          <path d="M0 160 L0 100 L70 80 L180 95 L260 55 L340 80 L400 65 L400 160 Z" fill="#1b1b1b"/>
+          <path d="M0 160 L0 128 L130 118 L280 122 L400 115 L400 160 Z" fill="#151515"/>
+        </svg>
+        <div class="pk-num">04</div>
+        <div class="pk-diff diff-m">Średnia</div>
+      </div>
+      <div class="pk-body">
+        <div class="pk-region">Bieszczady</div>
+        <div class="pk-name">Tarnica</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">1346m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">5h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+580m</div><div class="pk-stat-k">przewyż.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#121212"/>
+          <path d="M0 160 L0 95 L90 75 L170 88 L240 45 L310 78 L380 60 L400 65 L400 160 Z" fill="#1d1d1d"/>
+          <path d="M0 160 L0 130 L200 120 L400 125 L400 160 Z" fill="#161616"/>
+        </svg>
+        <div class="pk-num">05</div>
+        <div class="pk-diff diff-m">Średnia</div>
+      </div>
+      <div class="pk-body">
+        <div class="pk-region">Beskid Śląski</div>
+        <div class="pk-name">Skrzyczne</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">1499m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">4.5h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+680m</div><div class="pk-stat-k">przewyż.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pk">
+      <div class="pk-img">
+        <svg class="pk-img-inner" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="160" fill="#111"/>
+          <path d="M0 160 L0 110 L100 90 L200 80 L280 60 L360 85 L400 75 L400 160 Z" fill="#1e1e1e"/>
+          <path d="M0 160 L0 135 L180 125 L400 130 L400 160 Z" fill="#171717"/>
+        </svg>
+        <div class="pk-num">06</div>
+        <div class="pk-diff diff-e">Łatwa</div>
+      </div>
+      <div class="pk-body">
+        <div class="pk-region">Góry Stołowe</div>
+        <div class="pk-name">Szczeliniec</div>
+        <div class="pk-stats">
+          <div class="pk-stat"><div class="pk-stat-v">919m</div><div class="pk-stat-k">npm</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">3h</div><div class="pk-stat-k">czas</div></div>
+          <div class="pk-stat"><div class="pk-stat-v">+380m</div><div class="pk-stat-k">przewyż.</div></div>
         </div>
       </div>
     </div>
 
   </div>
-</section>
+</div>
 
 <!-- KGP PROGRESS -->
-<section id="kgp" style="max-width: 1200px; margin: 0 auto; padding: 0 2.5rem 5rem;">
-  <div class="section-header">
-    <div class="section-eyebrow">Postęp</div>
-    <h2 class="section-title">Korona <em>Gór Polski</em></h2>
-  </div>
-  <div class="kgp-progress">
-    <div class="kgp-header">
-      <span class="kgp-title">Zdobyte szczyty</span>
-      <span class="kgp-count"><span>13</span> / 28</span>
+<div class="kgp-section" id="kgp">
+  <div class="kgp-top">
+    <div>
+      <div class="kgp-counter">Postęp · Korona Gór Polski</div>
+      <div class="kgp-frac">13 <span style="color:var(--muted); font-size:1.5rem;">/ 28</span></div>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
+    <div style="text-align:right;">
+      <div class="kgp-counter">Procent</div>
+      <div class="kgp-frac">46%</div>
     </div>
-    <div class="kgp-peaks" id="kgpDots"></div>
   </div>
-</section>
+  <div class="prog-track"><div class="prog-fill"></div></div>
+  <div class="kgp-grid" id="kgpGrid"></div>
+</div>
 
 <!-- NEWSLETTER -->
-<div style="padding: 0 2.5rem 5rem; max-width: 1200px; margin: 0 auto;" id="checklist">
-  <div class="newsletter-section">
-    <div class="newsletter-bg"></div>
-    <div class="newsletter-inner">
-      <div class="nl-left">
-        <div class="nl-badge">🎁 Gratis dla subskrybentów</div>
-        <h2 class="nl-title">Checklista KGP<br>w PDF — za darmo</h2>
-        <p class="nl-desc">Dołącz do listy i odbierz naszą checklistę przygotowaną dla każdego z 28 szczytów — z kolumną na datę zdobycia, trudność i notatkę.</p>
-        <ul class="nl-checklist">
-          <li>Wszystkie 28 szczytów w jednym pliku</li>
-          <li>Kolumna: data, czas, warunki</li>
-          <li>Format A4 gotowy do druku</li>
-          <li>Ekskluzywne powiadomienia o nowych trasach</li>
-        </ul>
-      </div>
-      <div class="nl-right">
-        <div class="nl-form">
-          <div class="nl-form-title">Zapisz się na newsletter</div>
-          <div class="nl-form-sub">Bez spamu. Tylko nowe szczyty i przydatna wiedza.</div>
-          <!-- Tu wklejasz skrypt MailerLite -->
-          <input class="nl-input" type="text" placeholder="Twoje imię">
-          <input class="nl-input" type="email" placeholder="Adres e-mail">
-          <button class="nl-submit">↓ Pobierz checklistę PDF</button>
-          <div class="nl-privacy">🔒 Twoje dane są bezpieczne. Zero spamu.</div>
-        </div>
-      </div>
-    </div>
+<div class="nl-section" id="newsletter">
+  <div class="nl-left">
+    <div class="nl-eyebrow">Dla subskrybentów</div>
+    <h2 class="nl-title">
+      Checklista<br>
+      KGP<br>
+      <span class="inv">W PDF</span>
+    </h2>
+    <p class="nl-body">Wszystkie 28 szczytów Korony Gór Polski w jednym pliku. Wypełnij datę, czas i warunki — Twój osobisty dziennik zdobywcy.</p>
+    <ul class="nl-items">
+      <li>28 szczytów z kolumną na datę i notatkę</li>
+      <li>Format A4, gotowy do druku</li>
+      <li>Nowe trasy jako pierwsze</li>
+      <li>Zero spamu, wypis jednym klikiem</li>
+    </ul>
+  </div>
+  <div class="nl-right">
+    <div class="nl-form-title">→ Dołącz do listy</div>
+    <!-- Tu wklejasz skrypt MailerLite -->
+    <input class="nl-input" type="text" placeholder="Imię">
+    <input class="nl-input" type="email" placeholder="E-mail">
+    <button class="nl-submit">Pobierz checklistę PDF</button>
+    <div class="nl-privacy">ZERO SPAMU · WYPIS W KAŻDEJ CHWILI</div>
   </div>
 </div>
 
 <!-- SHOP TEASER -->
-<div style="padding: 0 2.5rem 6rem; max-width: 1200px; margin: 0 auto;" id="sklep">
-  <div class="shop-teaser">
-    <div class="shop-badge">⚡ Wkrótce</div>
-    <h2 class="shop-title">Yamandia Shop</h2>
-    <p class="shop-desc">Merch dla górołazów i przewodniki w PDF. Architektura e-commerce gotowa — czekamy tylko na Ciebie.</p>
-    <div class="shop-products">
-      <span class="shop-product-pill">Checklista KGP (PDF)</span>
-      <span class="shop-product-pill">Bluzy Yamandia EP</span>
-      <span class="shop-product-pill">Ebook: Jak zacząć KGP</span>
-      <span class="shop-product-pill">Mapy drukowane</span>
+<div class="shop-section" id="sklep">
+  <div class="shop-bg-text">SHOP</div>
+  <div class="shop-inner">
+    <div class="shop-eyebrow">Wkrótce dostępne</div>
+    <h2 class="shop-title">Yamandia<br>Shop</h2>
+    <p class="shop-desc">Merch dla górołazów i materiały PDF. Architektura e-commerce gotowa — Stripe + Snipcart bez przepisywania strony.</p>
+    <div class="shop-tags">
+      <span class="shop-tag">Checklista KGP (PDF)</span>
+      <span class="shop-tag">Bluzy Yamandia EP</span>
+      <span class="shop-tag">Ebook: Jak zacząć KGP</span>
+      <span class="shop-tag">Mapy drukowane</span>
     </div>
-    <a href="#checklist" class="btn-ghost" style="font-size:0.85rem;">Zapisz się na listę oczekujących →</a>
+    <a href="#newsletter" class="btn-blk">Zapisz się na listę →</a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Yamandia <span>EP</span></div>
-  <ul class="footer-links">
+  <div class="footer-left">Yamandia EP © 2025</div>
+  <ul class="footer-mid">
     <li><a href="#">Szczyty</a></li>
     <li><a href="#">O projekcie</a></li>
-    <li><a href="#">Polityka prywatności</a></li>
+    <li><a href="#">Prywatność</a></li>
     <li><a href="#">Kontakt</a></li>
   </ul>
-  <div class="footer-social">
-    <a href="#" class="social-btn" title="Instagram">IG</a>
-    <a href="#" class="social-btn" title="TikTok">TT</a>
-    <a href="#" class="social-btn" title="YouTube">YT</a>
+  <div class="footer-right">
+    <a href="#" class="social-link">IG</a>
+    <a href="#" class="social-link">TT</a>
+    <a href="#" class="social-link">YT</a>
   </div>
 </footer>
 
 <script>
-  // Nav scroll effect
+  // Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // KGP dots
-  const kgpDots = document.getElementById('kgpDots');
-  const peakNames = ['Rysy','Babia Góra','Śnieżka','Tarnica','Skrzyczne','Turbacz','Radziejowa','Szczeliniec','Łysica','Ślęża','Szeska Góra','Luboń W.','Lackowa','Mogielica','Trójmorski Wierch','Orlica','Waligóra','Rowokół','Wieżyca','Dylewska','Szeska Góra','Zamczysko','Gromnik','Ślęża2','Góra Świętej Anny','Łysa Góra','Skałka','Chełm'];
-  const done = [0,1,2,3,4,5,6,7,8,9,10,11,12];
-  peakNames.slice(0, 28).forEach((name, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'kgp-peak-dot' + (done.includes(i) ? ' done' : '');
-    dot.title = name;
-    if (!done.includes(i)) dot.innerHTML = `<span>${i+1}</span>`;
-    kgpDots.appendChild(dot);
+  // KGP grid
+  const grid = document.getElementById('kgpGrid');
+  const peaks = ['Rysy','Babia G.','Śnieżka','Tarnica','Skrzyczne','Turbacz','Radziejowa','Szczeliniec','Łysica','Ślęża','Lackowa','Mogielica','Luboń W.','Trójmorski','Orlica','Waligóra','Rowokół','Wieżyca','Dylewska G.','Szeska G.','Czupel','Gromnik','Ś. Anny','Łysa G.','Chełmiec','Zamczysko','Skałka','Chełm'];
+  const done = new Set([0,1,2,3,4,5,6,7,8,9,10,11,12]);
+  peaks.forEach((name, i) => {
+    const c = document.createElement('div');
+    c.className = 'kgp-cell' + (done.has(i) ? ' done' : '');
+    c.title = name;
+    c.textContent = done.has(i) ? '✓' : String(i+1).padStart(2,'0');
+    grid.appendChild(c);
   });
 </script>
 </body>
